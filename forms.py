@@ -50,7 +50,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("התחבר")
 
 class Search_review(FlaskForm):
-    name = StringField("הקלד את שם המשתמש עליו תרצה לקרוא חוות דעת")
+    name = StringField("הקלד את שם המשתמש עליו תרצה לקרוא חוות דעת (השאר ריק כדי לראות את כל חוות הדעת)")
     submit = SubmitField("חפש")
 
 

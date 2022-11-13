@@ -41,36 +41,39 @@
               </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ms-auto">
-          {% if not current_user.is_authenticated %}
-          <li class="nav-item">
+            {% if current_user.is_authenticated and current_user.id == 1%}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">התנתק</a>
+            </li>
+           <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('register') }}">הוסף משתמש</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('search_reviews') }}">חוות דעת</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('manage') }}">ניהול</a>
+            </li>
+
+            {% elif current_user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">התנתק</a>
+            </li>
+              <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('add_new_review') }}">חוות דעת</a>
+              </li>
+               <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('get_all_posts') }}">בית</a>
+                </li>
+            {% else %}
+
+              <li class="nav-item">
             <a class="nav-link" href="{{ url_for('login') }}">התחבר</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('register') }}">הרשמה</a>
-          </li>
-          {% else: %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('logout') }}">התנתק</a>
-          </li>
-          {% endif %}
-          {% if not current_user.id == 1 %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('add_new_review') }}">חוות דעת</a>
-          </li>
-          {% else: %}
-            <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('search_reviews') }}">חוות דעת</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('manage') }}">ניהול</a>
-            </li>
-          {% endif %}
-{#          <li class="nav-item">#}
-{#            <a class="nav-link" href="{{ url_for('about') }}">About</a>#}
-{#          </li>#}
-          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('get_all_posts') }}">בית</a>
           </li>
+          {% endif %}
         </ul>
       </div>
     </div>
