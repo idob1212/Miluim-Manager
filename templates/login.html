@@ -12,7 +12,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             <h1>Log In</h1>
-            <span class="subheading">Welcome Back!</span>
+            <span class="subheading" style="direction: rtl">ברוך הבא!</span>
           </div>
         </div>
       </div>
@@ -21,8 +21,14 @@
 
   <div class="container">
     <div class="row">
+<style>
+    label{
+        float: right;
+        direction: rtl;
+    }
 
-      <div class="col-lg-8 col-md-10 mx-auto content">
+</style>
+      <div class="col-lg-8 col-md-10 mx-auto content" style="direction: rtl; float: right">
       {% with messages = get_flashed_messages() %}
         {% if messages %}
           {% for message in messages %}

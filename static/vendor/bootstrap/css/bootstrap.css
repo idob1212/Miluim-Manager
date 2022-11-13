@@ -2047,6 +2047,7 @@ pre code {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  direction: rtl;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3828,6 +3829,7 @@ input[type="button"].btn-block {
   position: relative;
   margin-bottom: 0;
   vertical-align: top;
+  direction: rtl;
 }
 
 .custom-control-label::before {
@@ -3841,6 +3843,7 @@ input[type="button"].btn-block {
   content: "";
   background-color: #fff;
   border: #adb5bd solid 1px;
+  direction: rtl;
 }
 
 .custom-control-label::after {
@@ -3852,6 +3855,7 @@ input[type="button"].btn-block {
   height: 1rem;
   content: "";
   background: no-repeat 50% / 50% 50%;
+  direction: rtl;
 }
 
 .custom-checkbox .custom-control-label::before {
@@ -3901,7 +3905,10 @@ input[type="button"].btn-block {
   pointer-events: all;
   border-radius: 0.5rem;
 }
-
+label{
+  direction: rtl;
+  float: right;
+}
 .custom-switch .custom-control-label::after {
   top: calc(0.25rem + 2px);
   left: calc(-2.25rem + 2px);

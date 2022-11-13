@@ -13,18 +13,21 @@
             {% if is_edit: %}
             <h1>Edit Post</h1>
             {% else: %}
-            <h1>New Post</h1>
+            <h1>חוות דעת</h1>
             {% endif %}
-            <span class="subheading">You're going to make a great blog post!</span>
+            <span class="subheading" style="direction: rtl">נשמח לשמוע את דעתך!</span>
           </div>
         </div>
       </div>
     </div>
   </header>
-
+    <style>label{
+  direction: rtl;
+  float: right;
+}</style>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="col-lg-8 col-md-10 mx-auto", style="direction: rtl; float: right">
         {{ ckeditor.load() }}
         {{ ckeditor.config(name='body') }}
         {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}

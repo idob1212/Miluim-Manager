@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Angela's Blog</title>
+  <title>זיק</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -26,35 +26,44 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-md navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="{{url_for('get_all_posts')}}">Angela's Blog</a>
+      <a class="navbar-brand" href="{{url_for('get_all_posts')}}">יחידת זיק</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('get_all_posts') }}">Home</a>
-          </li>
           {% if not current_user.is_authenticated: %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+            <a class="nav-link" href="{{ url_for('login') }}">התחבר</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+            <a class="nav-link" href="{{ url_for('register') }}">הרשמה</a>
           </li>
           {% else: %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+            <a class="nav-link" href="{{ url_for('logout') }}">התנתק</a>
           </li>
           {% endif %}
+          {% if not current_user.id == 1 %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            <a class="nav-link" href="{{ url_for('add_new_review') }}">חוות דעת</a>
           </li>
+          {% else: %}
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('search_reviews') }}">חוות דעת</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('manage') }}">ניהול</a>
+            </li>
+          {% endif %}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="{{ url_for('about') }}">About</a>#}
+{#          </li>#}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+            <a class="nav-link" href="{{ url_for('get_all_posts') }}">בית</a>
           </li>
         </ul>
       </div>

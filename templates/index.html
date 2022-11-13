@@ -1,54 +1,80 @@
 {% include "header.html" %}
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1470092306007-055b6797ca72?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80')">
+  <header class="masthead" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c4/Hermes-450.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>Angela's Blog</h1>
-            <span class="subheading">A collection of random musings.</span>
+            <h1>יחידת זיק</h1>
+            <span class="subheading">איזור אישי</span>
           </div>
         </div>
       </div>
     </div>
   </header>
-
+<style>
+    h7{text-align: center;}
+    article{text-align: center}
+</style>
   <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        {% for post in all_posts %}
-        <div class="post-preview">
-          <a href="{{ url_for('show_post', post_id=post.id) }}">
-            <h2 class="post-title">
-              {{post.title}}
-            </h2>
-            <h3 class="post-subtitle">
-              {{post.subtitle}}
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            {{post.author.name}}
-            on {{post.date}}
-            {% if current_user.id == 1: %}
-            <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
-            {% endif %}
-          </p>
-        </div>
-        {% endfor %}
+  <div style="">
+{#    <div class="row">#}
+{#      <div class="col-lg-8 col-md-10 mx-auto">#}
+{#        {% for post in all_posts %}#}
+{#        <div class="post-preview">#}
+{#          <a href="{{ url_for('show_post', post_id=post.id) }}">#}
+{#            <h2 class="post-title">#}
+{#              {{post.title}}#}
+{#            </h2>#}
+{#            <h3 class="post-subtitle">#}
+{#              {{post.subtitle}}#}
+{#            </h3>#}
+{#          </a>#}
+{#          <p class="post-meta">Posted by#}
+{#            {{post.author.name}}#}
+{#            on {{post.date}}#}
+{#            {% if current_user.id == 1: %}#}
+{#            <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>#}
+{#            {% endif %}#}
+{#          </p>#}
+{#        </div>#}
+{#        {% endfor %}#}
+{##}
+{##}
+{#        <!-- New Post -->#}
+{#        {% if current_user.id == 1: %}#}
+{#        <div class="clearfix">#}
+{#          <a class="btn btn-primary float-right" href="{{url_for('add_new_post')}}">Create New Post</a>#}
+{#        </div>#}
+{#        {% endif %}#}
+{#      </div>#}
+      <div style="text-align:center" class="rendered-form" id="container">
+        <div style="text-align:center" class="" id="centeredBlock">
+            <h7 style="text-align:center; direction: rtl"><b>שם מלא:</b> {{ current_user.name }}</h7>
+            <br>
+            <h7 style="text-align:center; direction: rtl"><b>שעות טיסה מבצעיות:</b> {{ current_user.op_flight_time }}</h7>
+                        <br>
 
+            <h7 style="text-align:center; direction: rtl"> <b>שעות טיסה אימון:</b> {{ current_user.tr_flight_time }}</h7>
+                        <br>
 
-        <!-- New Post -->
-        {% if current_user.id == 1: %}
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="{{url_for('add_new_post')}}">Create New Post</a>
+            <h7 style=""><b>תאריך טיסה אחרון:</b> {{ current_user.last_flight_date }}</h7>
+                        <br>
+
+            <h7 style=""><b>כשירות:</b> {{ current_user.qualified }}</h7>
+                        <br>
+
+            <h7 style=""><b>מדר"'"ט:</b> {{ current_user.madrat }}</h7>
+                        <br>
+
+            <h7 style=""><b>מאמן:</b> {{ current_user.coach }}</h7>
         </div>
-        {% endif %}
-      </div>
+
     </div>
-  </div>
+    </div>
+{#  </div>#}
   <hr>
 
-{% include "footer.html" %}
+{#{% include "footer.html" %}#}

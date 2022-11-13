@@ -11,17 +11,26 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            <h1>Register</h1>
-            <span class="subheading">Start Contributing to the Blog!</span>
+              {% if is_edit %}
+              <h1>עריכת פרטי משתמש</h1>
+            {% else %}
+            <h1>הוסף משתמש</h1>
+              {% endif %}
+{#            <span class="subheading">Start Contributing to the Blog!</span>#}
           </div>
         </div>
       </div>
     </div>
   </header>
-
+<style>
+    label{
+        float: right;
+        direction: rtl;
+    }
+</style>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="col-lg-8 col-md-10 mx-auto" style="direction: rtl">
         {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
       </div>
     </div>
