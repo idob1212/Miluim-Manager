@@ -1,4 +1,4 @@
-{% extends 'bootstrap/base.html' %}
+{#{% extends 'bootstrap/base.html' %}#}
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
@@ -13,9 +13,9 @@
             {% if is_edit: %}
             <h1>Edit Post</h1>
             {% else: %}
-            <h1>חוות דעת</h1>
+            <h1 style="color: white">חוות דעת</h1>
             {% endif %}
-            <span class="subheading" style="direction: rtl">נשמח לשמוע את דעתך!</span>
+            <span class="subheading" style="direction: rtl; color: white">נשמח לשמוע את דעתך!</span>
           </div>
         </div>
       </div>
