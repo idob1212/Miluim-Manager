@@ -1,0 +1,70 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1484100356142-db6ab6244067?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>פאנל ניהול</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<head>
+    <meta charset="UTF-8">
+    <title>פאנל ניהול</title>
+</head>
+<body>
+<style>
+    .table{
+        float: right;
+    }
+</style>
+<table class = "table table-striped" style="width:100%; direction: rtl;">
+    <thead>
+    <tr>
+        <th>מספר אישי</th>
+        <th>סיסמה</th>
+        <th>שם</th>
+        <th>שעות טיסה מבצעיות</th>
+        <th>שעות טיסה אימון</th>
+        <th>תאריך טיסה אחרונה</th>
+        <th>כשירות</th>
+        <th>מדר"ט</th>
+        <th>מאמן</th>
+        <th>עריכה</th>
+        <th>מחק</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            {% if user.id != 1 %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.op_flight_time }}</td>
+        <td>{{ user.tr_flight_time }}</td>
+        <td>{{ user.last_flight_date }}</td>
+        <td>{{ user.qualified }}</td>
+        <td>{{ user.madrat }}</td>
+        <td>{{ user.coach }}</td>
+        <td><a href="{{url_for('edit_user', user_id=user.id) }}" style="color:red">ערוך</a></td>
+        <td><a href="{{url_for('delete_post', user_id=user.id) }}">✘</a></td>
+    </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
+{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1484100356142-db6ab6244067?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>לוח חוות דעת</h1>
+              {% if user_id != 0 %}
+          <span class="subheading" style="direction: rtl">חוות דעת על: {{ reviews[0].subject }} </span>
+              {% else %}
+         <span class="subheading" style="direction: rtl">חוות דעת על כולם </span>
+              {% endif %}
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<head>
+    <meta charset="UTF-8">
+    <title>לוח חוות דעת</title>
+</head>
+<body>
+<style>
+    .table{
+        float: right;
+        size: auto;
+    }
+</style>
+<table class = "table table-striped" style="width:100%; direction: rtl;">
+    <thead>
+    <tr>
+        <th>יוצר</th>
+        <th>תאריך</th>
+        <th>נקודות לשימור</th>
+        <th>נקודות לשיפור</th>
+        <th>רמת הפעלה</th>
+        <th>רמת ידע מקצועי</th>
+{#        <th>עריכה</th>#}
+{#        <th>מחק</th>#}
+    </tr>
+    </thead>
+    <tbody>
+        {% for review in reviews %}
+    <tr>
+        <td class="block">{{ review.author_name }}</td>
+        <td class="block">{{ review.date }}</td>
+        <td class="block">{{ review.keep_pts }}</td>
+        <td class="block">{{ review.improve_pts }}</td>
+        <td class="block">{{ review.op_level }}</td>
+        <td class="block">{{ review.knowledge_level }}</td>
+        <td><a href="{{url_for('edit_review', review_id = review.id)}}" style="color:red">ערוך</a></td>
+        <td><a href="{{url_for('delete_review', review_id = review.id) }}">✘</a></td>
+    </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
+{% include "footer.html" %}
+{% endblock %}
