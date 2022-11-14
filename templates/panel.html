@@ -30,6 +30,15 @@
         float: right;
     }
 </style>
+      <div class="col-lg-8 col-md-10 mx-auto content" style="direction: rtl; float: right">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+           <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      </div>
 <table class = "table table-striped" style="width:100%; direction: rtl;">
     <thead>
     <tr>
