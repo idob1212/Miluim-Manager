@@ -79,7 +79,7 @@ class Review(db.Model):
 #     parent_post = relationship("BlogPost", back_populates="comments")
 #     comment_author = relationship("User", back_populates="comments")
 #     text = db.Column(db.Text, nullable=False)
-db.create_all()
+# db.create_all()
 #
 
 def admin_only(f):
@@ -106,8 +106,8 @@ def register():
         if User.query.filter_by(id=form.id.data).first():
             print(User.query.filter_by(id=form.id.data).first())
             #User already exists
-            flash("משתמש כבר קיים! אנא התחבר")
-            return redirect(url_for('login'))
+            flash("משתמש כבר קיים!")
+            return redirect(url_for('manage'))
 
         # hash_and_salted_password = generate_password_hash(
         #     form.password.data,
@@ -129,7 +129,6 @@ def register():
         db.session.commit()
         login_user(new_user)
         return render_template("index.html", current_user=current_user)
-
     return render_template("register.html", form=form, current_user=current_user)
 
 
@@ -157,36 +156,6 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('get_all_posts'))
-
-
-@app.route("/post/<int:post_id>", methods=["GET", "POST"])
-def show_post(post_id):
-    form = CommentForm()
-    requested_post = BlogPost.query.get(post_id)
-    if form.validate_on_submit():
-        if not current_user.is_authenticated:
-            flash("You need to login or register to comment.")
-            return redirect(url_for("login"))
-
-        new_comment = Comment(
-            text=form.comment_text.data,
-            comment_author=current_user,
-            parent_post=requested_post
-        )
-        db.session.add(new_comment)
-        db.session.commit()
-
-    return render_template("post.html", post=requested_post, form=form, current_user=current_user)
-
-
-@app.route("/about")
-def about():
-    return render_template("about.html", current_user=current_user)
-
-
-@app.route("/contact")
-def contact():
-    return render_template("contact.html", current_user=current_user)
 
 
 @app.route("/new-review", methods=["GET", "POST"])
