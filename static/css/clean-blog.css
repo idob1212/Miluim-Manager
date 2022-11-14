@@ -250,6 +250,9 @@ header.masthead {
   background-size: cover;
 }
 
+.site-heading{
+  color: #ffffff;
+}
 header.masthead .overlay {
   position: absolute;
   top: 0;
