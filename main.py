@@ -10,7 +10,6 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import LoginForm, RegisterForm, CreateReviewForm, CommentForm, EditUserForm, Search_review, EditReviewForm, UpdateDateForm
 from flask_gravatar import Gravatar
-from werkzeug.datastructures import MultiDict
 import sys
 import logging
 
@@ -54,14 +53,14 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(1000), nullable=False)
     status = db.Column(db.String(1000), nullable=False)
     qualified = db.Column(db.String(1000), nullable=False)
-    qualified_assist = db.Column(db.String(1000), nullable=False)
-    madrat = db.Column(db.String(1000), nullable=False)
+    qualified_assist = db.Column(db.Boolean, nullable=False)
+    madrat = db.Column(db.Boolean, nullable=False)
     qualified_status = db.Column(db.String(1000), nullable=False)
-    op_flight_time = db.Column(db.Integer, nullable=False)
-    op_flight_time_goal = db.Column(db.Integer, nullable=False)
-    tr_flight_time = db.Column(db.Integer, nullable=False)
-    tr_flight_time_goal = db.Column(db.Integer, nullable=False)
-    guide_flight_time = db.Column(db.Integer, nullable=False)
+    op_flight_time = db.Column(db.Float, nullable=False)
+    op_flight_time_goal = db.Column(db.Float, nullable=False)
+    tr_flight_time = db.Column(db.Float, nullable=False)
+    tr_flight_time_goal = db.Column(db.Float, nullable=False)
+    guide_flight_time = db.Column(db.Float, nullable=False)
     coach = db.Column(db.Boolean, nullable=False)
     last_15_date = db.Column(db.Date, nullable=False)
     last_flight_date = db.Column(db.Date, nullable=False)
@@ -82,14 +81,6 @@ class Review(db.Model):
     co_op_level = db.Column(db.Integer, nullable=False)
 
 
-# class Comment(db.Model):
-#     __tablename__ = "comments"
-#     id = db.Column(db.Integer, primary_key=True)
-#     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
-#     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-#     parent_post = relationship("BlogPost", back_populates="comments")
-#     comment_author = relationship("User", back_populates="comments")
-#     text = db.Column(db.Text, nullable=False)
 db.create_all()
 #
 
@@ -141,7 +132,7 @@ def register():
             qualified=form.qualified.data,
             madrat=form.madrat.data,
             coach=form.coach.data,
-            qualified_status = form.qualified_status.data
+            qualified_status=form.qualified_status.data
         )
         db.session.add(new_user)
         db.session.commit()
