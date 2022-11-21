@@ -9,8 +9,8 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>יחידת זיק</h1>
-            <span class="subheading">איזור אישי</span>
+            <h1>{{ current_user.name }}</h1>
+            <span class="subheading">מידע אישי</span>
           </div>
         </div>
       </div>
@@ -56,24 +56,49 @@
 {#      </div>#}
       <div style="text-align:center" class="rendered-form" id="container">
         <div style="text-align:center" class="" id="centeredBlock">
-            <h7 style="text-align:center; direction: rtl"><b>שם מלא:</b> {{ current_user.name }}</h7>
-            <br>
-            <h7 style="text-align:center; direction: rtl"><b>שעות טיסה מבצעיות:</b> {{ current_user.op_flight_time }}</h7>
-                        <br>
 
-            <h7 style="text-align:center; direction: rtl"> <b>שעות טיסה אימון:</b> {{ current_user.tr_flight_time }}</h7>
+        {% if current_user.id != 1 %}
+            <h5 style="text-align:center; direction: rtl"><b>שעות טיסה מבצעיות:</b></h5>
+            <div class="progress" style="width: 30%; margin: auto" >
+            <div class="progress-bar" role="progressbar" style="width:{{ current_user.op_flight_time / current_user.op_flight_time_goal * 100}}%" aria-valuenow="{{ current_user.op_flight_time }}" aria-valuemin="0" aria-valuemax="{{ current_user.op_flight_time_goal }}">{{ current_user.op_flight_time }}\{{ current_user.op_flight_time_goal }}</div>
+                <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+            </div>
+            <h5 style="text-align:center; direction: rtl"> <b>שעות טיסה אימון:</b></h5>
+                <div class="progress" style="width: 30%; margin: auto" >
+            <div class="progress-bar" role="progressbar" style="width:{{ current_user.tr_flight_time / current_user.tr_flight_time_goal * 100}}%" aria-valuenow="{{ current_user.tr_flight_time }}" aria-valuemin="0" aria-valuemax="{{ current_user.tr_flight_time_goal }}">{{ current_user.tr_flight_time }}\{{ current_user.tr_flight_time_goal }}</div>
+                <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+            </div>
+            <h7 style="text-align:center; direction: rtl"><b>סטטוס:</b> {{ current_user.status }}</h7>
                         <br>
-
-            <h7 style=""><b>תאריך טיסה אחרון:</b> {{ current_user.last_flight_date }}</h7>
+            <h7 style="text-align:center; direction: rtl"><b>כשירות:</b> {{ current_user.qualified }}</h7>
                         <br>
-
+            <h7 style="text-align:center; direction: rtl"><b>כשירות סיוע:</b> {{ current_user.qualified_assist }}</h7>
+                <br>
+            <h7 style=""><b>מדר"ט:</b> {{ current_user.madrat }}</h7>
+                        <br>
+            <h7 style=""><b>סטטוס הסמכה:</b> {{ current_user.qualified_status }}</h7>
+                <br>
+            <h7 style="text-align:center; direction: rtl"> <b>שעות טיסה הדרכה:</b> {{ current_user.guide_flight_time }}</h7>
+                        <br>
             <h7 style=""><b>כשירות:</b> {{ current_user.qualified }}</h7>
                         <br>
-
-            <h7 style=""><b>מדר"'"ט:</b> {{ current_user.madrat }}</h7>
+            <h7 style="direction: ltr"><b>כוננות 15' אחרונה:</b> {{ current_user.last_15_date }}</h7>
                         <br>
+            <h7 style=""><b>טיסה אחרונה:</b> {{ current_user.last_flight_date }}</h7>
+                        <br>
+            {% if current_user.coach %}
+            <h7 style=""><b>מאמן:</b> כן </h7>
+            {% else %}
+            <h7 style=""><b>מאמן:</b> לא </h7>
+                <br> <br>
+            <a class="btn btn-primary" href="{{ url_for('add_new_review') }}">סיימתי טיסה</a>
+            <a class="btn btn-primary" href="{{ url_for('update_date') }}">עדכן כוננות 15</a>
+            {% endif %}
+            {% else %}
 
-            <h7 style=""><b>מאמן:</b> {{ current_user.coach }}</h7>
+            <br>
+
+        {% endif %}
         </div>
 
     </div>

@@ -2,13 +2,13 @@ import os
 from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from datetime import date
+from datetime import date, datetime
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import LoginForm, RegisterForm, CreateReviewForm, CommentForm, EditUserForm, Search_review, EditReviewForm
+from forms import LoginForm, RegisterForm, CreateReviewForm, CommentForm, EditUserForm, Search_review, EditReviewForm, UpdateDateForm
 from flask_gravatar import Gravatar
 from werkzeug.datastructures import MultiDict
 import sys
@@ -48,12 +48,19 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     password = db.Column(db.String(1000), nullable=False)
     name = db.Column(db.String(1000), nullable=False)
-    op_flight_time = db.Column(db.String(1000), nullable=False)
-    tr_flight_time = db.Column(db.String(1000), nullable=False)
-    last_flight_date = db.Column(db.String(1000), nullable=False)
+    status = db.Column(db.String(1000), nullable=False)
     qualified = db.Column(db.String(1000), nullable=False)
+    qualified_assist = db.Column(db.String(1000), nullable=False)
     madrat = db.Column(db.String(1000), nullable=False)
-    coach = db.Column(db.String(1000), nullable=False)
+    qualified_status = db.Column(db.String(1000), nullable=False)
+    op_flight_time = db.Column(db.Integer, nullable=False)
+    op_flight_time_goal = db.Column(db.Integer, nullable=False)
+    tr_flight_time = db.Column(db.Integer, nullable=False)
+    tr_flight_time_goal = db.Column(db.Integer, nullable=False)
+    guide_flight_time = db.Column(db.Integer, nullable=False)
+    coach = db.Column(db.Boolean, nullable=False)
+    last_15_date = db.Column(db.Date, nullable=False)
+    last_flight_date = db.Column(db.Date, nullable=False)
     reviews = relationship("Review", back_populates="author")
 
 
@@ -61,14 +68,14 @@ class Review(db.Model):
     __tablename__ = "reviews"
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    date = db.Column(db.String(250), nullable=False)
+    date = db.Column(db.Date, nullable=False)
     author = relationship("User", back_populates="reviews")
     author_name = db.Column(db.String(250), nullable=False)
     subject = db.Column(db.String(250), nullable=False)
     keep_pts = db.Column(db.Text, nullable=False)
     improve_pts = db.Column(db.Text, nullable=False)
     op_level = db.Column(db.Integer, nullable=False)
-    knowledge_level = db.Column(db.Integer, nullable=False)
+    co_op_level = db.Column(db.Integer, nullable=False)
 
 
 # class Comment(db.Model):
@@ -79,7 +86,7 @@ class Review(db.Model):
 #     parent_post = relationship("BlogPost", back_populates="comments")
 #     comment_author = relationship("User", back_populates="comments")
 #     text = db.Column(db.Text, nullable=False)
-# db.create_all()
+db.create_all()
 #
 
 def admin_only(f):
@@ -118,12 +125,19 @@ def register():
             id=form.id.data,
             name=form.name.data,
             password=form.password.data,
+            status=form.status.data,
+            qualified_assist = form.qualified_assist.data,
+            guide_flight_time = form.guide_flight_time.data,
+            last_15_date = form.last_15_date.data,
             op_flight_time=form.op_flight_time.data,
             tr_flight_time=form.tr_flight_time.data,
+            op_flight_time_goal=form.tr_flight_time_goal.data,
+            tr_flight_time_goal=form.tr_flight_time_goal.data,
             last_flight_date=form.last_flight_date.data,
             qualified=form.qualified.data,
             madrat=form.madrat.data,
             coach=form.coach.data,
+            qualified_status = form.qualified_status.data
         )
         db.session.add(new_user)
         db.session.commit()
@@ -172,11 +186,20 @@ def add_new_review():
             keep_pts=form.keep_pts.data,
             improve_pts=form.improve_pts.data,
             op_level=form.op_level.data,
-            knowledge_level=form.knowledge_level.data,
+            co_op_level=form.co_op_level.data,
             author=current_user,
             author_name=current_user.name,
-            date=date.today().strftime("%B %d, %Y")
+            date=form.last_flight_date.data
         )
+        if(current_user.last_flight_date < form.last_flight_date.data and form.last_flight_date.data < date.today()):
+            current_user.last_flight_date = form.last_flight_date.data
+        flight_type = form.flight_type.data
+        if flight_type =="op":
+            current_user.op_flight_time += int(form.flight_time.data)
+        elif flight_type == "tr":
+            current_user.tr_flight_time += int(form.flight_time.data)
+        elif flight_type == "gu":
+            current_user.guide_flight_time += int(form.flight_time.data)
         db.session.add(new_review)
         db.session.commit()
         return redirect(url_for("get_all_posts"))
@@ -201,7 +224,14 @@ def edit_user(user_id):
         last_flight_date=user.last_flight_date,
         qualified=user.qualified,
         madrat=user.madrat,
-        coach=user.coach
+        coach=user.coach,
+        qualified_assist = user.qualified_assist,
+        op_flight_time_goal = user.op_flight_time_goal,
+        tr_flight_time_goal=user.tr_flight_time_goal,
+        guide_flight_time = user.guide_flight_time,
+        last_15_date = user.last_15_date,
+        status = user.status,
+        qualified_status = user.qualified_status
     )
     if edit_form.validate_on_submit():
         user.name = edit_form.name.data
@@ -211,6 +241,11 @@ def edit_user(user_id):
         user.qualified = edit_form.qualified.data
         user.madrat = edit_form.madrat.data
         user.coach = edit_form.coach.data
+        user.qualified_assist = edit_form.qualified_assist.data
+        user.op_flight_time_goal = edit_form.op_flight_time_goal.data
+        user.tr_flight_time_goal = edit_form.tr_flight_time_goal.data
+        user.guide_flight_time = edit_form.guide_flight_time.data
+        user.last_15_date = edit_form.last_15_date.data
         db.session.commit()
         return redirect(url_for("manage"))
     return render_template("register.html", form=edit_form,is_edit=True, current_user=current_user)
@@ -282,6 +317,17 @@ def delete_review(review_id):
     db.session.delete(review_to_delete)
     db.session.commit()
     return redirect(url_for("search_reviews"))
+
+
+@app.route("/update-date", methods=["GET", "POST"])
+def update_date():
+    form = UpdateDateForm(last_15_date=current_user.last_15_date)
+    if form.validate_on_submit():
+        last_15 = form.last_15_date.data
+        current_user.last_15_date = last_15
+        db.session.commit()
+        return render_template("index.html", current_user=current_user)
+    return render_template("update-date.html", form=form, current_user=current_user)
 
 
 if __name__ == "__main__":
