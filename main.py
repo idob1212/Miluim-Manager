@@ -301,13 +301,13 @@ def edit_review(review_id):
         keep_pts=review.keep_pts,
         improve_pts=review.improve_pts,
         op_level=review.op_level,
-        knowledge_level=review.knowledge_level
+        co_op_level=review.co_op_level
     )
     if edit_form.validate_on_submit():
         review.keep_pts = edit_form.keep_pts.data
         review.improve_pts = edit_form.improve_pts.data
         review.op_level = edit_form.op_level.data
-        review.knowledge_level = edit_form.knowledge_level.data
+        review.co_op_level = edit_form.co_op_level.data
         db.session.commit()
         return redirect(url_for("search_reviews"))
     return render_template("make-post.html", form=edit_form, is_edit=True, current_user=current_user)
