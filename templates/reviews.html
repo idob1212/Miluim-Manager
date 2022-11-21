@@ -44,7 +44,7 @@
         <th>נקודות לשימור</th>
         <th>נקודות לשיפור</th>
         <th>רמת הפעלה</th>
-        <th>רמת ידע מקצועי</th>
+        <th>עבודת צוות</th>
 {#        <th>עריכה</th>#}
 {#        <th>מחק</th>#}
     </tr>
@@ -57,7 +57,7 @@
         <td class="block">{{ review.keep_pts }}</td>
         <td class="block">{{ review.improve_pts }}</td>
         <td class="block">{{ review.op_level }}</td>
-        <td class="block">{{ review.knowledge_level }}</td>
+        <td class="block">{{ review.co_op_level }}</td>
         <td><a href="{{url_for('edit_review', review_id = review.id)}}" style="color:red">ערוך</a></td>
         <td><a href="{{url_for('delete_review', review_id = review.id) }}">✘</a></td>
     </tr>
