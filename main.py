@@ -135,7 +135,7 @@ def register():
             last_15_date = form.last_15_date.data,
             op_flight_time=form.op_flight_time.data,
             tr_flight_time=form.tr_flight_time.data,
-            op_flight_time_goal=form.tr_flight_time_goal.data,
+            op_flight_time_goal=form.op_flight_time_goal.data,
             tr_flight_time_goal=form.tr_flight_time_goal.data,
             last_flight_date=form.last_flight_date.data,
             qualified=form.qualified.data,
