@@ -190,11 +190,11 @@ def add_new_review():
             current_user.last_flight_date = form.last_flight_date.data
         flight_type = form.flight_type.data
         if flight_type =="op":
-            current_user.op_flight_time += int(form.flight_time.data)
+            current_user.op_flight_time += float(form.flight_time.data)
         elif flight_type == "tr":
-            current_user.tr_flight_time += int(form.flight_time.data)
+            current_user.tr_flight_time += float(form.flight_time.data)
         elif flight_type == "gu":
-            current_user.guide_flight_time += int(form.flight_time.data)
+            current_user.guide_flight_time += float(form.flight_time.data)
         db.session.add(new_review)
         db.session.commit()
         return redirect(url_for("get_all_posts"))
