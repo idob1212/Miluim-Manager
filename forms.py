@@ -1,5 +1,4 @@
 from datetime import date
-
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, SelectField, IntegerField, BooleanField, FloatField
 from wtforms.validators import DataRequired, URL, NumberRange, InputRequired
@@ -17,7 +16,7 @@ class CreateReviewForm(FlaskForm):
     last_flight_date = DateField("תאריך טיסה",render_kw={'max':date.today()},validators=[DataRequired("זהו סעיף חובה")])
     flight_type = SelectField("סוג טיסה", choices=[("op", 'מבצעית'), ("tr", 'אימון'),("gu", 'הדרכה')], validators=[DataRequired()])
     flight_time = SelectField("שעות טיסה", choices=[(0, '0'),(0.5, '0.5'), (1, '1'), (1.5, '1.5'),(2, '2'),(2.5, '2.5'),(3, '3'),(3.5, '3.5'),(4, '4'),(4.5, '4.5'),(5, '5'),(5.5, '5.5'),(6, '6'),(6.5, '6.5'), (7,'7'), (7.5,'7.5'),(8,'8'), (8.5,'8.5'),(9,'9'),(9.5,'9.5'),(10,'10'),(10.5,'10.5'), (11,'11'), (11.5,'11.5'), (12, '12')], validators=[DataRequired()])
-    submit = SubmitField("הוסף חוות דעת")
+    submit = SubmitField("סיים טיסה")
 
 class EditReviewForm(FlaskForm):
     keep_pts = StringField("נקודות לשימור", validators=[DataRequired()])
@@ -27,7 +26,7 @@ class EditReviewForm(FlaskForm):
     last_flight_date = DateField("תאריך טיסה ",render_kw={'max':date.today()}, validators=[DataRequired("זהו סעיף חובה")])
     flight_type = SelectField("סוג טיסה", choices=[("op", 'מבצעית'), ("tr", 'אימון'),("gu", 'הדרכה')], validators=[DataRequired()])
     flight_time = SelectField("שעות טיסה", choices=[(0, '0'),(0.5, '0.5'), (1, '1'), (1.5, '1.5'),(2, '2'),(2.5, '2.5'),(3, '3'),(3.5, '3.5'),(4, '4'),(4.5, '4.5'),(5, '5'),(5.5, '5.5'),(6, '6'),(6.5, '6.5'), (7,'7'), (7.5,'7.5'),(8,'8'), (8.5,'8.5'),(9,'9'),(9.5,'9.5'),(10,'10'),(10.5,'10.5'), (11,'11'), (11.5,'11.5'), (12, '12')], validators=[DataRequired()])
-    submit = SubmitField("ערוך חוות דעת")
+    submit = SubmitField("סיים טיסה")
 
 class RegisterForm(FlaskForm):
     id = IntegerField("מספר אישי", validators=[DataRequired("זהו סעיף חובה")])

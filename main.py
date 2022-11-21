@@ -218,15 +218,15 @@ def edit_user(user_id):
         tr_flight_time=user.tr_flight_time,
         last_flight_date=user.last_flight_date,
         qualified=user.qualified,
-        madrat=user.madrat,
-        coach=user.coach,
-        qualified_assist = user.qualified_assist,
+        madrat=str(user.madrat)[0].lower(),
+        coach=str(user.coach)[0].lower(),
+        qualified_assist=str(user.qualified_assist)[0].lower(),
         op_flight_time_goal = user.op_flight_time_goal,
         tr_flight_time_goal=user.tr_flight_time_goal,
         guide_flight_time = user.guide_flight_time,
         last_15_date = user.last_15_date,
         status = user.status,
-        qualified_status = user.qualified_status
+        qualified_status=user.qualified_status,
     )
     if edit_form.validate_on_submit():
         user.name = edit_form.name.data
