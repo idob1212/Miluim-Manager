@@ -136,7 +136,10 @@ def register():
         )
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('manage'))
+        if current_user.id == 1:
+            return redirect(url_for('manage'))
+        else:
+            return redirect(url_for('login'))
     return render_template("register.html", form=form, current_user=current_user)
 
 
