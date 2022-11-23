@@ -40,6 +40,7 @@
     <thead>
     <tr>
         <th>יוצר</th>
+        <th>נושא</th>
         <th>תאריך</th>
         <th>נקודות לשימור</th>
         <th>נקודות לשיפור</th>
@@ -53,6 +54,7 @@
         {% for review in reviews %}
     <tr>
         <td class="block">{{ review.author_name }}</td>
+        <td class="block">{{ review.subject }}</td>
         <td class="block">{{ review.date }}</td>
         <td class="block">{{ review.keep_pts }}</td>
         <td class="block">{{ review.improve_pts }}</td>
