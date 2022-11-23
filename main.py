@@ -189,7 +189,7 @@ def add_new_review():
             author_name=current_user.name,
             date=form.last_flight_date.data
         )
-        if(current_user.last_flight_date < form.last_flight_date.data and form.last_flight_date.data <= date.today()):
+        if(current_user.last_flight_date < form.last_flight_date.data):
             current_user.last_flight_date = form.last_flight_date.data
         flight_type = form.flight_type.data
         if flight_type =="op":
