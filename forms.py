@@ -9,8 +9,8 @@ from flask_ckeditor import CKEditorField
 ##WTForm
 class CreateReviewForm(FlaskForm):
     subject = SelectField("שם המוערך", validators=[DataRequired()])
-    keep_pts = StringField("נקודות לשימור", validators=[DataRequired()])
-    improve_pts = StringField("נקודות לשיפור", validators=[DataRequired()])
+    keep_pts = StringField("נקודות לשימור")
+    improve_pts = StringField("נקודות לשיפור")
     op_level = SelectField("רמת הפעלה", choices=[(4, '4'), (5, '5'),(6, '6'),(7, '7'),(8, '8'),(9, '9'),(10, '10')], validators=[DataRequired()])
     co_op_level = SelectField("עבודת צוות", choices=[(4, '4'), (5, '5'),(6, '6'),(7, '7'),(8, '8'),(9, '9'),(10, '10')], validators=[DataRequired()])
     last_flight_date = DateField("תאריך טיסה",render_kw={'max':date.today()},validators=[DataRequired("זהו סעיף חובה")])
@@ -19,8 +19,8 @@ class CreateReviewForm(FlaskForm):
     submit = SubmitField("סיים טיסה")
 
 class EditReviewForm(FlaskForm):
-    keep_pts = StringField("נקודות לשימור", validators=[DataRequired()])
-    improve_pts = StringField("נקודות לשיפור", validators=[DataRequired()])
+    keep_pts = StringField("נקודות לשימור")
+    improve_pts = StringField("נקודות לשיפור")
     op_level = SelectField("רמת הפעלה", choices=[(4, '4'), (5, '5'),(6, '6'),(7, '7'),(8, '8'),(9, '9'),(10, '10')], validators=[DataRequired()])
     co_op_level = SelectField("עבודת צוות", choices=[(4, '4'), (5, '5'),(6, '6'),(7, '7'),(8, '8'),(9, '9'),(10, '10')], validators=[DataRequired()])
     last_flight_date = DateField("תאריך טיסה ",render_kw={'max':date.today()}, validators=[DataRequired("זהו סעיף חובה")])
