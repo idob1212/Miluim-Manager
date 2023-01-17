@@ -76,10 +76,6 @@
                 <br>
             <h7 style="text-align:center; direction: rtl"> <b>שעות טיסה הדרכה:</b> {{ current_user.guide_flight_time }}</h7>
                         <br>
-            <h7 style=""><b>כשירות:</b> {{ current_user.qualified }}</h7>
-                        <br>
-            <h7 style="direction: ltr"><b>כוננות 15' אחרונה:</b> {{ current_user.last_15_date }}</h7>
-                        <br>
             <h7 style=""><b>טיסה אחרונה:</b> {{ current_user.last_flight_date }}</h7>
                         <br>
             {% if current_user.madrat %}
@@ -101,7 +97,6 @@
                 {% endif %}
                 <br> <br>
             <a class="btn btn-primary" href="{{ url_for('add_new_review') }}">סיימתי טיסה</a>
-            <a class="btn btn-primary" href="{{ url_for('update_date') }}">עדכן כוננות 15</a>
 
             {% else %}
 

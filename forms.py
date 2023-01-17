@@ -66,7 +66,7 @@ class EditUserForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    id = StringField("מספר אישי", validators=[DataRequired()])
+    id = StringField("שם משתמש", validators=[DataRequired()])
     password = PasswordField("סיסמה", validators=[DataRequired()])
     submit = SubmitField("התחבר")
 
