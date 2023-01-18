@@ -60,12 +60,12 @@
         {% if current_user.id != 1 %}
             <h5 style="text-align:center; direction: rtl"><b>שעות טיסה מבצעיות:</b></h5>
             <div class="progress" style="width: 30%; margin: auto" >
-            <div class="progress-bar" role="progressbar" style="width:{{ current_user.op_flight_time / current_user.op_flight_time_goal * 100}}%" aria-valuenow="{{ current_user.op_flight_time }}" aria-valuemin="0" aria-valuemax="{{ current_user.op_flight_time_goal }}">{{ current_user.op_flight_time }}\{{ current_user.op_flight_time_goal }}</div>
+            <div class="progress-bar" role="progressbar" style="width:{{ current_user.op_flight_time / current_user.op_flight_time_goal * 100}}%; color:black"  aria-valuenow="{{ current_user.op_flight_time }}" aria-valuemin="0"  aria-valuemax="{{ current_user.op_flight_time_goal }}">{{ current_user.op_flight_time }}\{{ current_user.op_flight_time_goal }}</div>
                 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
             </div>
             <h5 style="text-align:center; direction: rtl"> <b>שעות טיסה אימון:</b></h5>
                 <div class="progress" style="width: 30%; margin: auto" >
-            <div class="progress-bar" role="progressbar" style="width:{{ current_user.tr_flight_time / current_user.tr_flight_time_goal * 100}}%" aria-valuenow="{{ current_user.tr_flight_time }}" aria-valuemin="0" aria-valuemax="{{ current_user.tr_flight_time_goal }}">{{ current_user.tr_flight_time }}\{{ current_user.tr_flight_time_goal }}</div>
+            <div class="progress-bar" role="progressbar" style="width:{{ current_user.tr_flight_time / current_user.tr_flight_time_goal * 100}}%; color:black" aria-valuenow="{{ current_user.tr_flight_time }}" aria-valuemin="0" aria-valuemax="{{ current_user.tr_flight_time_goal }}">{{ current_user.tr_flight_time }}\{{ current_user.tr_flight_time_goal }}</div>
                 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
             </div>
             <h7 style="text-align:center; direction: rtl"><b>סטטוס:</b> {{ current_user.status }}</h7>
