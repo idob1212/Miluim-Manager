@@ -238,6 +238,7 @@ def edit_user(user_id):
         user.last_flight_date = edit_form.last_flight_date.data
         user.qualified = edit_form.qualified.data
         user.madrat = edit_form.madrat.data
+        user.qualified_status = edit_form.qualified_status.data
         user.coach = edit_form.coach.data
         user.qualified_assist = edit_form.qualified_assist.data
         user.op_flight_time_goal = edit_form.op_flight_time_goal.data
