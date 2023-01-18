@@ -4,6 +4,8 @@ from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from datetime import date, datetime
 from functools import wraps
+
+from sqlalchemy.sql.elements import Null
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
@@ -281,7 +283,7 @@ def search_reviews():
 def show_reviews(user_id):
     if user_id == 0:
         reviews = Review.query.all()
-        reviews = [review for review in reviews if User.query.filter_by(id=review.subject)]
+        reviews = [review for review in reviews if User.query.filter_by(name=review.subject).first()]
         return render_template('reviews.html', reviews=reviews, user_id=user_id)
     user = User.query.filter_by(id=user_id).first()
     reviews = Review.query.filter_by(subject=user.name).all()
